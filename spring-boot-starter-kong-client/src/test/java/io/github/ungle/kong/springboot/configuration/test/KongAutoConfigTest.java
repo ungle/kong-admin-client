@@ -6,9 +6,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
 
-import com.github.ungle.kong.client.api.InformationApi;
-import com.github.ungle.kong.client.feignclient.KongClientFactory;
-import com.github.ungle.kong.client.response.NodeStatusResponse;
+import io.github.ungle.kong.client.api.InformationApi;
+import io.github.ungle.kong.client.feignclient.KongClientFactory;
+import io.github.ungle.kong.client.response.NodeStatusResponse;
 
 import io.github.ungle.kong.springboot.configuration.KongAutoConfiguration;
 

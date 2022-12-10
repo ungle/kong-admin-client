@@ -1,7 +1,7 @@
 package io.github.ungle.kong.springboot.configuration;
 
 /**
- * @author pennyliang
+ * @author ungle
  */
 
 public class KongAuthProperties {

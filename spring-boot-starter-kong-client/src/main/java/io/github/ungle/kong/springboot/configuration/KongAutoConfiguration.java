@@ -15,11 +15,11 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.github.ungle.kong.client.api.*;
-import com.github.ungle.kong.client.api.plugins.AclApi;
-import com.github.ungle.kong.client.api.plugins.Oauth2Api;
-import com.github.ungle.kong.client.feignclient.KongClientFactory;
-import com.github.ungle.kong.client.feignclient.KongLegencyDecoder;
+import io.github.ungle.kong.client.api.*;
+import io.github.ungle.kong.client.api.plugins.AclApi;
+import io.github.ungle.kong.client.api.plugins.Oauth2Api;
+import io.github.ungle.kong.client.feignclient.KongClientFactory;
+import io.github.ungle.kong.client.feignclient.KongLegencyDecoder;
 
 @EnableConfigurationProperties(KongProperties.class)
 @ConditionalOnProperty(value = "kong.client.enabled", matchIfMissing = true)
