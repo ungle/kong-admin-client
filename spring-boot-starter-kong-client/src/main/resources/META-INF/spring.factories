@@ -1,1 +1,1 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=org.kastin.kong.starter.configuration.KongAutoConfiguration
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.github.ungle.kong.springboot.configuration.KongAutoConfiguration

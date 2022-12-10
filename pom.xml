@@ -2,7 +2,7 @@
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>org.kastin</groupId>
+	<groupId>com.github.ungle</groupId>
 	<artifactId>kong-admin-client</artifactId>
 	<packaging>pom</packaging>
 	<version>2.0.0</version>
@@ -26,6 +26,21 @@
 		<junit.version>5.9.1</junit.version>
 		<slf4j.version>2.0.5</slf4j.version>
 	</properties>
+	
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+    
+    <developers>
+        <developer>
+            <id>ungle</id>
+            <name>ungle</name>
+            <email>kansfu@fjjs.xyz</email>
+        </developer>
+    </developers>
 
 	<build>
 
