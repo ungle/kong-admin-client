@@ -65,7 +65,7 @@ public class KongAutoConfiguration {
                 builder.keyAuth(authProperties.getKeyAuth().getHeaderName(), authProperties.getKeyAuth().getApiKey());
             }
         }
-        if(kongProperties.getUseLegencyDecoder()) {
+        if(kongProperties.getUseLegacyDecoder()) {
         	builder.decoder(new KongLegacyDecoder());
         }
 

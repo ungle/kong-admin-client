@@ -65,7 +65,6 @@ kong.client.okhttp.* = ...
 kong.client.retry.* = ...
 #log level,accepted values are NONE,BASIC,HEADERS and FULL, optional
 kong.client.log-level = BASIC
-
 ```
 
 Then start to use:
@@ -80,8 +79,6 @@ public NodeStatusResponse hello() {
   return result;
 }
 ```
-
-
 
 ## Plugin Configuration
 
@@ -111,8 +108,6 @@ For other plugin without dedicated builders or custom plugins, you can set the c
 CustomizedMapConfig.builder().addProperty("header-name","22").build();
 ```
 
-
-
 ## Working with Secured Admin API
 
 Kong Admin API can be secured via [Kong API Loopback](https://docs.konghq.com/gateway/3.1.x/production/running-kong/secure-admin-api/) and kong-admin-client can connected to these endpoints with authenization.
@@ -134,11 +129,7 @@ kong.client.auth.key-auth.header-name= xxx
 kong.client.auth.key-auth.api-key= xxx
 ```
 
-
-
 For now, kong-admin-client supports Basic Auth and Key Auth secured admin api.
-
-
 
 ### Working with Older Kong Version
 
@@ -172,6 +163,12 @@ KongClientFactory kongClientFactory = KongClientFactory.builder()
 .build();
 ```
 
+For spring, just enable this property:
+
+```properties
+kong.client.use-legacy-decoder = true
+```
+
+
+
 **Notice:** kong-admin-client is not fully tested and will not be maintained for adapting kong 1.x, so some features may not work well with kong 1.x
-
-

@@ -82,15 +82,15 @@ public class KongProperties {
     @Override
 	public String toString() {
 		return "KongProperties [targets=" + targets + ", okhttp=" + okhttp + ", retry=" + retry + ", auth=" + auth
-				+ ", logLevel=" + logLevel + ", useLegencyDecoder=" + useLegacyDecoder + "]";
+				+ ", logLevel=" + logLevel + ", useLegacyDecoder=" + useLegacyDecoder + "]";
 	}
 
-	public Boolean getUseLegencyDecoder() {
+	public Boolean getUseLegacyDecoder() {
 		return useLegacyDecoder;
 	}
 
-	public void setUseLegencyDecoder(Boolean useLegencyDecoder) {
-		this.useLegacyDecoder = useLegencyDecoder;
+	public void setUseLegencyDecoder(Boolean useLegacyDecoder) {
+		this.useLegacyDecoder = useLegacyDecoder;
 	}
 
 	public static class RetryerProperties {
