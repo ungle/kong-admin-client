@@ -9,6 +9,8 @@
 
 	<artifactId>kong-admin-client-core</artifactId>
 	<version>${project.version}</version>
+	<name>kong-admin-client-core</name>
+	<description>A Java Core Client for Kong Admin API</description>
 
 	<dependencies>
 		<dependency>

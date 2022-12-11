@@ -9,6 +9,8 @@
 
 	<artifactId>spring-boot-starter-kong-client</artifactId>
 	<version>${project.version}</version>
+	<name>spring-boot-starter-kong-client</name>
+	<description>A Spring Boot Starter for Kong Admin API</description>
 
 	<dependencies>
 		<dependency>

@@ -11,6 +11,16 @@
 		<module>spring-boot-starter-kong-client</module>
 	</modules>
 
+	<name>kong-admin-client</name>
+	<description>A Java Client for Kong Admin API</description>
+	<url>https://github.com/ungle/kong-admin-client</url>
+
+	<scm>
+		<connection>scm:git@github.com:ungle/kong-admin-client.git</connection>
+		<developerConnection>scm:git@github.com:ungle/kong-admin-client.git</developerConnection>
+		<url>scm:git@github.com:ungle/kong-admin-client.git</url>
+	</scm>
+
 	<properties>
 		<project.version>2.0.0</project.version>
 		<encoding>UTF-8</encoding>
