@@ -44,6 +44,7 @@ public interface KeySetApi {
 	
 	/**
 	 * Update KeySet
+	 * @param keySet The unique identifier or the name of the KeySet
 	 * @param request key set info
 	 * @return updated key set info
 	 */
@@ -88,7 +89,7 @@ public interface KeySetApi {
 	 * Update Key Set Associated to a Specific Key
 	 * @param key The unique identifier or the name of the Key associated to the Key Set
 	 * @param request key set info
-	 * @return
+	 * @return updated key info
 	 */
 	@RequestLine("PATCH /keys/{key}/set")
 	@Headers("Content-Type: application/json")

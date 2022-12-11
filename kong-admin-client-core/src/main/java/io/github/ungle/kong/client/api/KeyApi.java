@@ -62,6 +62,7 @@ public interface KeyApi {
 	
 	/**
 	 * Update Key
+	 * @param key The unique identifier or the name of the Key
 	 * @param request key info
 	 * @return updated key info
 	 */
@@ -113,7 +114,6 @@ public interface KeyApi {
 	 * Retrieve Key Associated to a Specific Key Set
 	 * @param keySet The unique identifier or the name of the Key Set
 	 * @param key The unique identifier or the name of the Key
-	 * @param request key info
 	 * @return key info
 	 */
 	@RequestLine("GET /key-sets/{key_set}/keys/{key}")
@@ -130,7 +130,7 @@ public interface KeyApi {
 	 * Delete Key Associated to a Specific Key Set
 	 * @param keySet The unique identifier or the name of the Key Set
 	 * @param key The unique identifier or the name of the Key
-	 * @return
+	 * @return key info
 	 */
 	@RequestLine("DELETE /key-sets/{key_set}/keys/{key}")
 	KeyResponse deleteByKeySet(@Param("key_set") String keySet,@Param("key") String key);

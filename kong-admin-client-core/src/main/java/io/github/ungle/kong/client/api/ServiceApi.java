@@ -34,7 +34,7 @@ public interface ServiceApi {
     /**
      * find services via offset
      *
-     * @param offset 
+     * @param offset offset
      * @return service list
      */
     @RequestLine("GET /services?offset={offset}")
@@ -158,7 +158,7 @@ public interface ServiceApi {
     /**
      * add service
      *
-     * @param request service info
+     * @param serviceRequest service info
      * @return added service info
      */
     @RequestLine("POST /services")

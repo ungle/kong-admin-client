@@ -44,6 +44,7 @@ public interface VaultApi {
 	
 	/**
 	 * Update Vault
+	 * @param vault The unique identifier or the prefix of the Vault
 	 * @param request vault info
 	 * @return updated vault info
 	 */

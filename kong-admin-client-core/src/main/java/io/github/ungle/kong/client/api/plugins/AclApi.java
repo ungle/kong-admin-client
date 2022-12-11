@@ -38,7 +38,7 @@ public interface AclApi {
 	/**
 	 * get acls by offset
 	 * 
-	 * @param offset
+	 * @param offset offset
 	 * @return acl list
 	 */
 	@RequestLine("GET /acls?offset={offset}")
@@ -57,8 +57,8 @@ public interface AclApi {
 	 * Retrieve ACLs by consumer
 	 * 
 	 * @param consumer The username or id of the consumer
-	 * @param offset   offset
-	 * @return
+	 * @param offset offset
+	 * @return acl list
 	 */
 	@RequestLine("GET /consumers/{consumer}/acls?offset={offset}")
 	ApiDataList<AclResponse> findByConsumerAndOffset(@Param("consumer") String consumer,

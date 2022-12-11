@@ -61,7 +61,7 @@ public interface Oauth2Api {
     
     /**
      * Retrieve Token
-     * @param tokenId
+     * @param tokenId token id
      * @return token info
      */
     @RequestLine("GET /oauth2_tokens/{token}")

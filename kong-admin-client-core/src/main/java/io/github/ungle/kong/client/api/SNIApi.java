@@ -25,7 +25,7 @@ public interface SNIApi {
 	
 	/**
 	 * Create SNI Associated to a Specific Certificate
-	 * @param certificate The unique identifier of the Certificate that should be associated to the newly-created SNI.
+	 * @param certificateId The unique identifier of the Certificate that should be associated to the newly-created SNI.
 	 * @param request sni info
 	 * @return added sni info
 	 */
@@ -42,7 +42,7 @@ public interface SNIApi {
 	
 	/**
 	 * List SNIs Associated to a Specific Certificate
-	 * @param certificate The unique identifier of the Certificate whose SNIs are to be retrieved. 
+	 * @param certificateId The unique identifier of the Certificate whose SNIs are to be retrieved. 
 	 * When using this endpoint, only SNIs associated to the specified Certificate will be listed.
 	 * @return sni info list
 	 */
@@ -75,8 +75,8 @@ public interface SNIApi {
 	
 	/**
 	 * Retrieve SNI Associated to a Specific Certificate
-	 * @param certificate The unique identifier of the Certificate to delete
-	 * @param sni The unique identifier or the name of the SNI to update
+	 * @param certificateId The unique identifier of the Certificate to delete
+	 * @param sni The unique identifier or the name of the SNI
 	 * @return sni info
 	 */
 	@RequestLine("GET /certificates/{certificate_id}/snis/{sni}")
@@ -84,6 +84,7 @@ public interface SNIApi {
 	
 	/**
 	 * Update SNI
+	 * @param sni The unique identifier or the name of the SNI
 	 * @param request sni info
 	 * @return updated sni info
 	 */
@@ -93,7 +94,7 @@ public interface SNIApi {
 	
 	/**
 	 * Update SNI Associated to a Specific Certificate
-	 * @param certificate The unique identifier of the Certificate to delete
+	 * @param certificateId The unique identifier of the Certificate to delete
 	 * @param sni The unique identifier or the name of the SNI to update
 	 * @param request sni info
 	 * @return updated sni info
@@ -105,6 +106,7 @@ public interface SNIApi {
 	/**
 	 * Create Or Update SNI
 	 * @param request sni info
+	 * @param sni The unique identifier or the name of the SNI
 	 * @return updated or created sni info
 	 */
 	@RequestLine("PUT /snis/{sni}")
@@ -113,7 +115,7 @@ public interface SNIApi {
 	
 	/**
 	 * Create Or Update SNI Associated to a Specific Certificate
-	 * @param certificate The unique identifier of the Certificate to delete
+	 * @param certificateId The unique identifier of the Certificate to delete
 	 * @param sni The unique identifier or the name of the SNI to update
 	 * @param request sni info
 	 * @return updated or created sni info
@@ -131,7 +133,7 @@ public interface SNIApi {
 	
 	/**
 	 * Delete SNI Associated to a Specific Certificate
-	 * @param certificate The unique identifier of the Certificate to delete
+	 * @param certificateId The unique identifier of the Certificate to delete
 	 * @param sni The unique identifier or the name of the SNI to update
 	 */
 	@RequestLine("DELETE /certificates/{certificate_id}/snis/{sni}")

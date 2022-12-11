@@ -16,7 +16,7 @@ public interface TargetApi {
 	/**
 	 * add target
 	 * @param upstream The unique identifier or the name of the upstream.
-	 * @param targetRequest
+	 * @param targetRequest target info
 	 * @return added target info
 	 */
     @RequestLine("POST /upstreams/{upstream}/targets")

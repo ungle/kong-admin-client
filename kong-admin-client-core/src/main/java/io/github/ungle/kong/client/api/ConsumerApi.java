@@ -17,9 +17,8 @@ public interface ConsumerApi {
 
     /**
      * Create Consumer
-     *
-     * @param ConsumerRequest consumer info
-     * @return ConsumerResponse consumer added
+     * @param consumerRequest consumer info
+     * @return added consumer
      */
     @RequestLine("POST /consumers")
     @Headers("Content-Type: application/json")
@@ -53,8 +52,7 @@ public interface ConsumerApi {
 
     /**
      * Retrieve Consumer
-     *
-     * @param The unique identifier or the username of the Consumer to retrieve
+     * @param consumer The unique identifier or the username of the Consumer
      * @return consumer info
      */
     @RequestLine("GET /consumers/{consumer}")

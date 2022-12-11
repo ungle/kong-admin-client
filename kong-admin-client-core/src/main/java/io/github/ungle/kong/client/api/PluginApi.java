@@ -52,9 +52,7 @@ public interface PluginApi {
 	/**
 	 * Create Plugin Associated to a Specific Consumer
 	 *
-	 * @param consumerId    The unique identifier or the name attribute of the
-	 *                      Consumer that should be associated to the newly-created
-	 *                      Plugin.
+	 * @param consumer    The unique identifier or the name attribute of the Consumer
 	 * @param pluginRequest plugin info
 	 * @return plugin added
 	 */

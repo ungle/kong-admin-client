@@ -106,7 +106,7 @@ public interface CertificateApi {
 	/**
 	 * Delete Certificate
 	 * @param certificateId The unique identifier of the Certificate to retrieve
-	 * @return
+	 * @return certificate info
 	 */
 	@RequestLine("DELETE /certificates/{certificate_id}")
 	CertificateResponse delete(@Param("certificate_id") String certificateId);
@@ -114,7 +114,7 @@ public interface CertificateApi {
 	/**
 	 * Delete Certificate Associated to a Specific Upstream
 	 * @param upstream The unique identifier or the name of the Upstream associated to the Certificate to be retrieved
-	 * @return
+	 * @return certificate info
 	 */
 	@RequestLine("DELETE /upstreams/{upstream}/client_certificate")
 	CertificateResponse deleteByUpstream(@Param("upstream") String upstream);
