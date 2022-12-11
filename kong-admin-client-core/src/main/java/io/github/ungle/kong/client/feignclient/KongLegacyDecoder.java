@@ -21,19 +21,19 @@ import java.util.Collections;
  * for a legacy problem existing in kong 1.x
  * To have compatibility with 1.x, set it as decoder when creating kong client
  */
-public class KongLegencyDecoder implements Decoder {
+public class KongLegacyDecoder implements Decoder {
     private final ObjectMapper mapper;
 
-    public KongLegencyDecoder() {
+    public KongLegacyDecoder() {
         this(Collections.<Module>emptyList());
     }
 
-    public KongLegencyDecoder(Iterable<Module> modules) {
+    public KongLegacyDecoder(Iterable<Module> modules) {
         this(new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
                 .registerModules(modules));
     }
 
-    public KongLegencyDecoder(ObjectMapper mapper) {
+    public KongLegacyDecoder(ObjectMapper mapper) {
         this.mapper = mapper;
     }
 

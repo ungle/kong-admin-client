@@ -19,7 +19,7 @@ import io.github.ungle.kong.client.api.*;
 import io.github.ungle.kong.client.api.plugins.AclApi;
 import io.github.ungle.kong.client.api.plugins.Oauth2Api;
 import io.github.ungle.kong.client.feignclient.KongClientFactory;
-import io.github.ungle.kong.client.feignclient.KongLegencyDecoder;
+import io.github.ungle.kong.client.feignclient.KongLegacyDecoder;
 
 @EnableConfigurationProperties(KongProperties.class)
 @ConditionalOnProperty(value = "kong.client.enabled", matchIfMissing = true)
@@ -66,7 +66,7 @@ public class KongAutoConfiguration {
             }
         }
         if(kongProperties.getUseLegencyDecoder()) {
-        	builder.decoder(new KongLegencyDecoder());
+        	builder.decoder(new KongLegacyDecoder());
         }
 
         return builder.build();

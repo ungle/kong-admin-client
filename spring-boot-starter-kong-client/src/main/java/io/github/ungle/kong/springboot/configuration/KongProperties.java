@@ -31,7 +31,7 @@ public class KongProperties {
 
     private Logger.Level logLevel = Logger.Level.BASIC;
     
-    private Boolean useLegencyDecoder = Boolean.FALSE;
+    private Boolean useLegacyDecoder = Boolean.FALSE;
 
     public KongProperties() {
     }
@@ -82,15 +82,15 @@ public class KongProperties {
     @Override
 	public String toString() {
 		return "KongProperties [targets=" + targets + ", okhttp=" + okhttp + ", retry=" + retry + ", auth=" + auth
-				+ ", logLevel=" + logLevel + ", useLegencyDecoder=" + useLegencyDecoder + "]";
+				+ ", logLevel=" + logLevel + ", useLegencyDecoder=" + useLegacyDecoder + "]";
 	}
 
 	public Boolean getUseLegencyDecoder() {
-		return useLegencyDecoder;
+		return useLegacyDecoder;
 	}
 
 	public void setUseLegencyDecoder(Boolean useLegencyDecoder) {
-		this.useLegencyDecoder = useLegencyDecoder;
+		this.useLegacyDecoder = useLegencyDecoder;
 	}
 
 	public static class RetryerProperties {
