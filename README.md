@@ -157,8 +157,8 @@ In this case, the data become a json object, different from json list when it co
 {
     "next":null,
     "data":[
-    {entity...},
-    {entity...}
+    {"id":"xxx"},
+    {"id":"yyy"}
 ]
 }
 ```
@@ -168,7 +168,7 @@ A legacy decoder can be used to avoid error in json decoding process
 ```java
 KongClientFactory kongClientFactory = KongClientFactory.builder()
                 .targets(Arrays.asList("http://127.0.0.1:8001"))
-.decoder(new KongLegencyDecoder())
+.decoder(new KongLegacyDecoder())
 .build();
 ```
 
