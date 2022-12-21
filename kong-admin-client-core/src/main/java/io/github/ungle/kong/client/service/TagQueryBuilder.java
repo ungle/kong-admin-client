@@ -50,7 +50,7 @@ public class TagQueryBuilder {
         if (stringBuilder.indexOf(OR_OP) > -1) {
             throw new IllegalArgumentException("Mixing operators is not supported");
         }
-        //避免出现误用，导致分隔符出现在开头
+        
         if (stringBuilder.length() > 0) {
             stringBuilder.append(AND_OP);
         }

@@ -32,7 +32,10 @@ public class RoundRobinBalancerInterceptor implements RequestInterceptor {
             throw new IllegalArgumentException("kong target is empty");
         }
         int nextServerIndex = getNextTargetIndex(targets.size());
-        log.debug("choose target {}", targets.get(nextServerIndex));
+        if(log.isDebugEnabled()) {
+        	log.debug("choose target {}", targets.get(nextServerIndex));
+        }
+        
         requestTemplate.target(targets.get(nextServerIndex));
     }
 
