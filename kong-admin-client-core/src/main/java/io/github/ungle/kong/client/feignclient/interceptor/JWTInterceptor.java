@@ -7,6 +7,8 @@ import java.security.interfaces.ECKey;
 import java.security.interfaces.RSAKey;
 import java.security.spec.EncodedKeySpec;
 import java.security.spec.PKCS8EncodedKeySpec;
+import java.util.Date;
+
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import feign.RequestInterceptor;
@@ -86,7 +88,7 @@ public class JWTInterceptor implements RequestInterceptor {
 
 	@Override
 	public void apply(RequestTemplate template) {
-		String jwtToken = JWT.create().withIssuer(key).withClaim(keyClaimName, key).sign(algorithm);
+		String jwtToken = JWT.create().withIssuer(key).withIssuedAt(new Date()).withClaim(keyClaimName, key).sign(algorithm);
 		if (AllowedJWTRetrievePositions.HEADER.equals(authorizationPosition)) {
 			template.header(authorizationName, "Bearer "+ jwtToken);
 		} else if (AllowedJWTRetrievePositions.COOKIE.equals(authorizationPosition)) {
