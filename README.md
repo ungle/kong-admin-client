@@ -26,7 +26,7 @@ import by maven
 <dependency>
   <groupId>io.github.ungle</groupId>
   <artifactId>kong-admin-client-core</artifactId>
-  <version>2.0.0</version>
+  <version>2.1.0</version>
 </dependency>
 ```
 
@@ -48,7 +48,7 @@ import by maven
 <dependency>
   <groupId>io.github.ungle</groupId>
   <artifactId>spring-boot-starter-kong-client</artifactId>
-  <version>2.0.0</version>
+  <version>2.1.0</version>
 </dependency>
 ```
 
@@ -63,7 +63,7 @@ kong.client.targets = http://127.0.0.1:8001,http://127.0.0.2:8001
 kong.client.okhttp.* = ...
 #retry properties, optional
 kong.client.retry.* = ...
-#log level,accepted values are NONE,BASIC,HEADERS and FULL, optional
+#log level,accepted values are NONE,BASIC,HEADERS and FULL, optional, default is basic
 kong.client.log-level = BASIC
 ```
 
@@ -127,6 +127,9 @@ kong.client.auth.basic-auth.password = xxx
 # key auth
 kong.client.auth.key-auth.header-name= xxx
 kong.client.auth.key-auth.api-key= xxx
+# jwt auth
+kong.client.auth.jwt-auth.key =xxx
+# more detail see https://github.com/ungle/kong-admin-client/blob/master/spring-boot-starter-kong-client/src/main/java/io/github/ungle/kong/springboot/configuration/KongAuthProperties.java
 ```
 
 For now, kong-admin-client supports Basic Auth and Key Auth secured admin api.
@@ -168,7 +171,5 @@ For spring, just enable this property:
 ```properties
 kong.client.use-legacy-decoder = true
 ```
-
-
 
 **Notice:** kong-admin-client is not fully tested and will not be maintained for adapting kong 1.x, so some features may not work well with kong 1.x
