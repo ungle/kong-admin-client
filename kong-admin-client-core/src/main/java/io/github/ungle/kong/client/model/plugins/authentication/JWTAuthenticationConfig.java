@@ -7,6 +7,7 @@ import java.util.Set;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.github.ungle.kong.client.enums.JWTClaimsVerify;
+import io.github.ungle.kong.client.model.plugins.PluginConfig;
 import io.github.ungle.kong.client.service.ValidateUtils;
 
 /**
@@ -17,7 +18,7 @@ import io.github.ungle.kong.client.service.ValidateUtils;
  *
  */
 
-public class JWTAuthenticationConfig extends BaseAuthenticationConfig {
+public class JWTAuthenticationConfig extends PluginConfig {
 
 	@JsonProperty("uri_param_names")
 	private Set<String> uriParamNames;
@@ -43,7 +44,6 @@ public class JWTAuthenticationConfig extends BaseAuthenticationConfig {
 	private Integer maxinumExpiration;
 
 	private JWTAuthenticationConfig(Builder builder) {
-		super(builder.hideCredentials,builder.anoymousDefaultUserId);
 		this.uriParamNames = builder.uriParamNames;
 		this.cookieNames = builder.cookieNames;
 		this.headerNames = builder.headerNames;
@@ -110,8 +110,6 @@ public class JWTAuthenticationConfig extends BaseAuthenticationConfig {
 		private Boolean secretIsBase64;
 		private Boolean runOnPreflight;
 		private Integer maxinumExpiration;
-		private Boolean hideCredentials;
-		private String anoymousDefaultUserId;
 
 		private Builder() {
 		}
@@ -156,16 +154,6 @@ public class JWTAuthenticationConfig extends BaseAuthenticationConfig {
 			return this;
 		}
 
-		public Builder withHideCredentials(Boolean hideCredentials) {
-			this.hideCredentials = hideCredentials;
-			return this;
-		}
-
-		public Builder withAnoymousDefaultUserId(String anoymousDefaultUserId) {
-			this.anoymousDefaultUserId = anoymousDefaultUserId;
-			return this;
-		}
-
 		public JWTAuthenticationConfig build() {
 			headerNames = ValidateUtils.defaultIfNull(headerNames,new HashSet<>(Arrays.asList("authorization")));
 			keyClaimName =ValidateUtils.defaultIfNull(keyClaimName ,"iss");
@@ -173,7 +161,6 @@ public class JWTAuthenticationConfig extends BaseAuthenticationConfig {
 			runOnPreflight = ValidateUtils.defaultIfNull(runOnPreflight,Boolean.TRUE);
 			maxinumExpiration =ValidateUtils.defaultIfNull(maxinumExpiration, 0);
 			verifyMaxinumExpiration(maxinumExpiration,claimsToVerify);
-			this.hideCredentials = ValidateUtils.defaultIfNull(hideCredentials, Boolean.FALSE);
 			return new JWTAuthenticationConfig(this);
 		}
 	}

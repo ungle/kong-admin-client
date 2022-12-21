@@ -6,6 +6,9 @@ import feign.codec.Decoder;
 import feign.jackson.JacksonDecoder;
 import feign.jackson.JacksonEncoder;
 import feign.slf4j.Slf4jLogger;
+import io.github.ungle.kong.client.enums.JWTAlgorithm;
+import io.github.ungle.kong.client.feignclient.interceptor.AllowedJWTRetrievePositions;
+import io.github.ungle.kong.client.feignclient.interceptor.JWTInterceptor;
 import io.github.ungle.kong.client.feignclient.interceptor.KeyAuthInterceptor;
 import io.github.ungle.kong.client.feignclient.interceptor.RoundRobinBalancerInterceptor;
 import io.github.ungle.kong.client.service.ValidateUtils;
@@ -76,6 +79,13 @@ public class KongClientFactory {
 				throw new IllegalArgumentException("username and password must be non-blank");
 			}
 			this.authInterceptor = new BasicAuthRequestInterceptor(username, password);
+			return this;
+		}
+		
+		public Builder jwtAuth(String key, JWTAlgorithm algorithm, String secret, String rsaPrivateKey, String keyClaimName,
+				String authorizationName, AllowedJWTRetrievePositions authorizationPosition) {
+			this.authInterceptor = new JWTInterceptor(key, algorithm, secret, rsaPrivateKey,
+					keyClaimName, authorizationName, authorizationPosition);
 			return this;
 		}
 

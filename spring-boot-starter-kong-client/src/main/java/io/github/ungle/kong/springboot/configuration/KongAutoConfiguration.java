@@ -19,6 +19,7 @@ import io.github.ungle.kong.client.api.*;
 import io.github.ungle.kong.client.api.plugins.*;
 import io.github.ungle.kong.client.feignclient.KongClientFactory;
 import io.github.ungle.kong.client.feignclient.KongLegacyDecoder;
+import io.github.ungle.kong.springboot.configuration.KongAuthProperties.JWTAuthProperties;
 
 @EnableConfigurationProperties(KongProperties.class)
 @ConditionalOnProperty(value = "kong.client.enabled", matchIfMissing = true)
@@ -60,6 +61,10 @@ public class KongAutoConfiguration {
 						authProperties.getBasicAuth().getPassword());
 			} else if (authProperties.getKeyAuth() != null) {
 				builder.keyAuth(authProperties.getKeyAuth().getHeaderName(), authProperties.getKeyAuth().getApiKey());
+			} else {
+				JWTAuthProperties jwtProperties = authProperties.getJwtAuth();
+				builder.jwtAuth(jwtProperties.getKey(),jwtProperties.getAlgorithm(), jwtProperties.getSecret(), 
+						jwtProperties.getRsaPrivateKey(), jwtProperties.getKeyClaimName(), jwtProperties.getAuthorizationName(), jwtProperties.getAuthorizationPosition());
 			}
 		}
 		if (kongProperties.getUseLegacyDecoder()) {
