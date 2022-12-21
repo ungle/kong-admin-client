@@ -81,12 +81,34 @@ public class Oauth2PluginTest {
     }
     
     
-    
     @Test
     @Order(4)
+    public void testFindByCredential() throws Exception {
+        ApiDataList<OAuth2TokenResponse> response  = oauth2Api.findTokenByCredential(credentialId);
+        assertEquals(tokenId,response.getData().get(0).getId());
+    }
+    
+    @Test
+    @Order(5)
+    public void testFindByToken() throws Exception {
+        OAuth2CredentialsResponse credentialsResponse  = oauth2Api.retrieveCredentialByToken(tokenId);
+        assertEquals("test-credential",credentialsResponse.getName());
+    }
+    
+    @Test
+    @Order(6)
+    public void testFindConsumer() throws Exception {
+        ConsumerResponse response  = oauth2Api.retrieveConsumer(credentialId);
+        assertEquals(name,response.getUsername());
+    }
+    
+    @Test
+    @Order(7)
     public void delete() {
     	oauth2Api.deleteToken(tokenId);
+    	assertEquals(0, oauth2Api.findTokenByCredential(credentialId).getData().size());
     	oauth2Api.delete(credentialId);
+    	assertEquals(0, oauth2Api.findByConsumer(consumerId).getData().size());
     }
     
     @AfterAll

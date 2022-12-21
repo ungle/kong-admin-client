@@ -6,6 +6,8 @@ import feign.RequestLine;
 import io.github.ungle.kong.client.model.ApiDataList;
 import io.github.ungle.kong.client.requests.plugins.OAuth2CredentialsRequest;
 import io.github.ungle.kong.client.requests.plugins.OAuth2TokenRequest;
+import io.github.ungle.kong.client.response.ConsumerResponse;
+import io.github.ungle.kong.client.response.ServiceResponse;
 import io.github.ungle.kong.client.response.plugins.OAuth2CredentialsResponse;
 import io.github.ungle.kong.client.response.plugins.OAuth2TokenResponse;
 
@@ -50,6 +52,26 @@ public interface Oauth2Api {
     @RequestLine("DELETE /consumers/{consumer}/oauth2/{credential}")
     void deleteByConsumer(@Param("consumer") String consumer,@Param("credential") String credential);
     
+	/**
+	 * Retrieve the consumer associated with oauth2
+	 * 
+	 * @param credential credential id
+	 * @return consumer info
+	 */
+	@RequestLine("GET /oauth2/{credential}/consumer")
+	ConsumerResponse retrieveConsumer(@Param("credential") String credential);
+	
+    /**
+     * Create Token via credential
+     * @param credential credential id
+     * @param request token info
+     * @return created token info
+     */
+    @RequestLine("POST /oauth2/{credential}/oauth2_tokens")
+    @Headers("Content-Type: application/json")
+    OAuth2TokenResponse addTokenByCredential(@Param("credential") String credential,OAuth2TokenRequest request);
+	
+    
     /**
      * Create Token
      * @param request token info
@@ -79,7 +101,7 @@ public interface Oauth2Api {
     
     /**
      * Delete token
-     * @param tokenId  token info
+     * @param tokenId  token id
      */
     @RequestLine("DELETE /oauth2_tokens/{token}")
     void deleteToken(@Param("token") String tokenId);
@@ -90,6 +112,36 @@ public interface Oauth2Api {
      */
     @RequestLine("GET /oauth2_tokens")
     ApiDataList<OAuth2TokenResponse> findToken();
+    
+    /**
+     * Retrieve credential by token
+     * @param tokenId  token id
+     * @return credential info
+     */
+    @RequestLine("GET /oauth2_tokens/{token}/credential")
+    OAuth2CredentialsResponse retrieveCredentialByToken(@Param("token") String tokenId);
+    
+    /**
+     * Retrieve service by token
+     * @param tokenId  token id
+     * @return service info
+     */
+    @RequestLine("GET /oauth2_tokens/{token}/service")
+    ServiceResponse retrieveServiceByToken(@Param("token") String tokenId);
+    
+    
+    
+    /**
+     * List all tokens in a oauth2 credentials
+     * @param credential credential id
+     * @return token list
+     */
+    @RequestLine("GET /oauth2/{credential}/oauth2_tokens")
+    ApiDataList<OAuth2TokenResponse> findTokenByCredential(@Param("credential") String credential);
+    
+    
+    
+    
     
 
 }
