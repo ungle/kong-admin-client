@@ -1,7 +1,7 @@
 package io.github.ungle.kong.client.model.plugins;
 
 /**
- * @author pennyliang
+ * @author ungle
  */
 public abstract class PluginConfig {
 

@@ -27,7 +27,7 @@ public class ValidateUtils {
 		}
 	}
 	
-	public static <E> void isBlack (String value,String message) {
+	public static <E> void isBlank (String value,String message) {
 		if (Util.isBlank(value)) {
 			throw new IllegalArgumentException(message);
 		}

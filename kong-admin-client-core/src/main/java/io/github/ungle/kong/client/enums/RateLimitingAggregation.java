@@ -15,5 +15,14 @@ public enum RateLimitingAggregation {
 	HEADER,
 	@JsonProperty("path")
 	PATH;
+	
+	public enum ResponseRateLimitingAggregation{
+		@JsonProperty("consumer")
+		CONSUMER,
+		@JsonProperty("credential")
+		CREDENTIAL,
+		@JsonProperty("ip")
+		IP;
+	}
 
 }

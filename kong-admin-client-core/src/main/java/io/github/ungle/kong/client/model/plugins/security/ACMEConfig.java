@@ -577,7 +577,7 @@ public class ACMEConfig extends PluginConfig {
 			backendStorage = ValidateUtils.defaultIfNull(backendStorage, BackendStorage.SHM);
 			tosAccepted = ValidateUtils.defaultIfNull(tosAccepted, Boolean.FALSE);
 			rsaKeySize = ValidateUtils.defaultIfNull(rsaKeySize, 4096);
-			ValidateUtils.isBlack(accountEmail, "accountEmail should not be null");
+			ValidateUtils.isBlank(accountEmail, "accountEmail should not be null");
 			verifyRSAKeySize(rsaKeySize);
 			return new ACMEConfig(this);
 		}

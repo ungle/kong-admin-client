@@ -1,28 +1,23 @@
 package io.github.ungle.kong.client.model.plugins.traffic;
 
-import java.util.Objects;
-import java.util.stream.Stream;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import io.github.ungle.kong.client.enums.RateLimitingAggregation;
 import io.github.ungle.kong.client.enums.RateLimitingPolicy;
+import io.github.ungle.kong.client.enums.RateLimitingAggregation.ResponseRateLimitingAggregation;
 import io.github.ungle.kong.client.model.plugins.PluginConfig;
 import io.github.ungle.kong.client.service.ValidateUtils;
 
-public class RateLimitingConfig extends PluginConfig {
-	private Long second;
-	private Long minute;
-	private Long hour;
-	private Long day;
-	private Long month;
-	private Long year;
+public class ResponseRateLimitingConfig extends PluginConfig {
 	@JsonProperty("limit_by")
-	private RateLimitingAggregation limitBy;
+	private ResponseRateLimitingAggregation limitBy;
 	@JsonProperty("header_name")
 	private String headerName;
-	private String path;
 	private RateLimitingPolicy policy;
+	@JsonProperty("block_on_first_violation")
+	private Boolean blockOnFirstViolation;
 	@JsonProperty("fault_tolerant")
 	private Boolean faultTolerent;
 	@JsonProperty("hide_client_headers")
@@ -45,19 +40,13 @@ public class RateLimitingConfig extends PluginConfig {
 	private Integer redisTimeout;
 	@JsonProperty("redis_database")
 	private Integer redisDatabase;
+	private Map<String, RateLimitData> limits;
 
-	private RateLimitingConfig(Builder builder) {
-		super();
-		this.second = builder.second;
-		this.minute = builder.minute;
-		this.hour = builder.hour;
-		this.day = builder.day;
-		this.month = builder.month;
-		this.year = builder.year;
+	private ResponseRateLimitingConfig(Builder builder) {
 		this.limitBy = builder.limitBy;
 		this.headerName = builder.headerName;
-		this.path = builder.path;
 		this.policy = builder.policy;
+		this.blockOnFirstViolation = builder.blockOnFirstViolation;
 		this.faultTolerent = builder.faultTolerent;
 		this.hideClientHeaders = builder.hideClientHeaders;
 		this.redisHost = builder.redisHost;
@@ -69,46 +58,10 @@ public class RateLimitingConfig extends PluginConfig {
 		this.redisServerName = builder.redisServerName;
 		this.redisTimeout = builder.redisTimeout;
 		this.redisDatabase = builder.redisDatabase;
+		this.limits = builder.limits;
 	}
 
-	public RateLimitingConfig(Long second, Long minute, Long hour, Long day, Long month, Long year) {
-		super();
-		this.second = second;
-		this.minute = minute;
-		this.hour = hour;
-		this.day = day;
-		this.month = month;
-		this.year = year;
-		this.limitBy = RateLimitingAggregation.CONSUMER;
-		this.policy = RateLimitingPolicy.LOCAL;
-		this.redisSSL = Boolean.FALSE;
-	}
-
-	public Long getSecond() {
-		return second;
-	}
-
-	public Long getMinute() {
-		return minute;
-	}
-
-	public Long getHour() {
-		return hour;
-	}
-
-	public Long getDay() {
-		return day;
-	}
-
-	public Long getMonth() {
-		return month;
-	}
-
-	public Long getYear() {
-		return year;
-	}
-
-	public RateLimitingAggregation getLimitBy() {
+	public ResponseRateLimitingAggregation getLimitBy() {
 		return limitBy;
 	}
 
@@ -116,12 +69,12 @@ public class RateLimitingConfig extends PluginConfig {
 		return headerName;
 	}
 
-	public String getPath() {
-		return path;
-	}
-
 	public RateLimitingPolicy getPolicy() {
 		return policy;
+	}
+
+	public Boolean getBlockOnFirstViolation() {
+		return blockOnFirstViolation;
 	}
 
 	public Boolean getFaultTolerent() {
@@ -168,23 +121,19 @@ public class RateLimitingConfig extends PluginConfig {
 		return redisDatabase;
 	}
 
-	
+	public Map<String, RateLimitData> getLimits() {
+		return limits;
+	}
 
 	public static Builder builder() {
 		return new Builder();
 	}
 
 	public static final class Builder {
-		private Long second;
-		private Long minute;
-		private Long hour;
-		private Long day;
-		private Long month;
-		private Long year;
-		private RateLimitingAggregation limitBy;
+		private ResponseRateLimitingAggregation limitBy;
 		private String headerName;
-		private String path;
 		private RateLimitingPolicy policy;
+		private Boolean blockOnFirstViolation;
 		private Boolean faultTolerent;
 		private Boolean hideClientHeaders;
 		private String redisHost;
@@ -196,41 +145,12 @@ public class RateLimitingConfig extends PluginConfig {
 		private String redisServerName;
 		private Integer redisTimeout;
 		private Integer redisDatabase;
+		private Map<String, RateLimitData> limits;
 
 		private Builder() {
 		}
 
-		public Builder withSecond(Long second) {
-			this.second = second;
-			return this;
-		}
-
-		public Builder withMinute(Long minute) {
-			this.minute = minute;
-			return this;
-		}
-
-		public Builder withHour(Long hour) {
-			this.hour = hour;
-			return this;
-		}
-
-		public Builder withDay(Long day) {
-			this.day = day;
-			return this;
-		}
-
-		public Builder withMonth(Long month) {
-			this.month = month;
-			return this;
-		}
-
-		public Builder withYear(Long year) {
-			this.year = year;
-			return this;
-		}
-
-		public Builder withLimitBy(RateLimitingAggregation limitBy) {
+		public Builder withLimitBy(ResponseRateLimitingAggregation limitBy) {
 			this.limitBy = limitBy;
 			return this;
 		}
@@ -240,13 +160,13 @@ public class RateLimitingConfig extends PluginConfig {
 			return this;
 		}
 
-		public Builder withPath(String path) {
-			this.path = path;
+		public Builder withPolicy(RateLimitingPolicy policy) {
+			this.policy = policy;
 			return this;
 		}
 
-		public Builder withPolicy(RateLimitingPolicy policy) {
-			this.policy = policy;
+		public Builder withBlockOnFirstViolation(Boolean blockOnFirstViolation) {
+			this.blockOnFirstViolation = blockOnFirstViolation;
 			return this;
 		}
 
@@ -305,15 +225,30 @@ public class RateLimitingConfig extends PluginConfig {
 			return this;
 		}
 
-		public RateLimitingConfig build() {
-			limitBy = ValidateUtils.defaultIfNull(limitBy, RateLimitingAggregation.CONSUMER);
-			policy = ValidateUtils.defaultIfNull(policy, RateLimitingPolicy.LOCAL);
-			redisSSL = ValidateUtils.defaultIfNull(redisSSL, Boolean.FALSE);
-			verifyPolicy();
-			verifyRate();
-			return new RateLimitingConfig(this);
+		public Builder addLimit(String limitName, RateLimitData limit) {
+			if (limits == null) {
+				limits = new HashMap<>();
+			}
+			limits.put(limitName, limit);
+			return this;
 		}
-		
+
+		public Builder addAllLimits(Map<String, RateLimitData> limits) {
+			if (limits == null) {
+				return this;
+			}
+			if (this.limits == null) {
+				this.limits = new HashMap<>(limits.size());
+			}
+			this.limits.putAll(limits);
+			return this;
+		}
+
+		public Builder withLimits(Map<String, RateLimitData> limits) {
+			this.limits = limits;
+			return this;
+		}
+
 		private void verifyPolicy() {
 			if (RateLimitingPolicy.REDIS.equals(policy)
 					&& (redisHost == null || redisPort == null || redisTimeout == null)) {
@@ -321,27 +256,13 @@ public class RateLimitingConfig extends PluginConfig {
 			}
 		}
 
-		private void verifyRate() {
-			Long [] rates = {second, minute, hour, day, month, year};
-			String[] periods = {"second", "minute", "hour", "day", "month", "year"};
-			Stream<Long> stream = Stream.of(rates);
-			if (stream.allMatch(Objects::isNull)) {
-				throw new IllegalArgumentException(
-						"the rate limit params second,minute,hour,day,month,year must have at least one non-null");
-			}
-			stream = Stream.of(rates);
-			if (stream.filter(Objects::nonNull).anyMatch(t -> t <= 0)) {
-				throw new IllegalArgumentException("the rate limit must greater than 0");
-			}
-			
-			for(int i=0; i < rates.length-1;i++) {
-				for(int j =1; j < rates.length;j++) {
-					if(rates[j] !=null && rates[j] < rates[i]) {
-						throw new IllegalArgumentException(String.format("the limit for %s(%d) cannot be lower than the limit for %s(%d)", 
-								periods[j],rates[j],periods[i],rates[i]));
-					}
-				}
-			}
+		public ResponseRateLimitingConfig build() {
+			limitBy = ValidateUtils.defaultIfNull(limitBy, ResponseRateLimitingAggregation.CONSUMER);
+			policy = ValidateUtils.defaultIfNull(policy, RateLimitingPolicy.LOCAL);
+			redisSSL = ValidateUtils.defaultIfNull(redisSSL, Boolean.FALSE);
+			blockOnFirstViolation = ValidateUtils.defaultIfNull(blockOnFirstViolation, Boolean.FALSE);
+			verifyPolicy();
+			return new ResponseRateLimitingConfig(this);
 		}
 	}
 

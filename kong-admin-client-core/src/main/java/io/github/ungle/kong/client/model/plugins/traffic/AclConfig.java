@@ -48,7 +48,7 @@ public class AclConfig extends PluginConfig {
 	public static final class Builder {
 		private Set<String> allow;
 		private Set<String> deny;
-		private Boolean hideGroupHeader = true;
+		private Boolean hideGroupHeader;
 
 		private Builder() {
 		}
