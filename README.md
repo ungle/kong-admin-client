@@ -26,7 +26,7 @@ import by maven
 <dependency>
   <groupId>io.github.ungle</groupId>
   <artifactId>kong-admin-client-core</artifactId>
-  <version>2.1.0</version>
+  <version>2.1.1</version>
 </dependency>
 ```
 
@@ -48,7 +48,7 @@ import by maven
 <dependency>
   <groupId>io.github.ungle</groupId>
   <artifactId>spring-boot-starter-kong-client</artifactId>
-  <version>2.1.0</version>
+  <version>2.1.1</version>
 </dependency>
 ```
 
