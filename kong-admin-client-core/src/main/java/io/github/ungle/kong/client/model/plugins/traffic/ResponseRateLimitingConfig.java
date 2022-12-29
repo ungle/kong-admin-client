@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import feign.Util;
 import io.github.ungle.kong.client.enums.RateLimitingPolicy;
 import io.github.ungle.kong.client.enums.RateLimitingAggregation.ResponseRateLimitingAggregation;
 import io.github.ungle.kong.client.model.plugins.PluginConfig;
@@ -251,7 +252,7 @@ public class ResponseRateLimitingConfig extends PluginConfig {
 
 		private void verifyPolicy() {
 			if (RateLimitingPolicy.REDIS.equals(policy)
-					&& (redisHost == null || redisPort == null || redisTimeout == null)) {
+					&& (Util.isBlank(redisHost) || redisPort == null || redisTimeout == null)) {
 				throw new IllegalArgumentException("redis param must be specified when policy is redis");
 			}
 		}

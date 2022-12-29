@@ -19,7 +19,6 @@ public class LDAPAuthenticationConfig extends BaseAuthenticationConfig {
 	@JsonProperty("start_tls")
 	private Boolean startTLS;
 
-	@JsonProperty("start_tls")
 	private Boolean ldaps;
 
 	@JsonProperty("base_dn")
@@ -28,7 +27,6 @@ public class LDAPAuthenticationConfig extends BaseAuthenticationConfig {
 	@JsonProperty("verify_ldap_host")
 	private Boolean verifyLDAPHost;
 
-	@JsonProperty("verify_ldap_host")
 	private String attribute;
 
 	@JsonProperty("cache_ttl")

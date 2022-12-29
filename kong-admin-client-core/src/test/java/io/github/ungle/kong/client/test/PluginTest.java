@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.github.ungle.kong.client.api.PluginApi;
 import io.github.ungle.kong.client.api.ServiceApi;
+import io.github.ungle.kong.client.enums.InnerPluginName;
 import io.github.ungle.kong.client.feignclient.KongClientFactory;
 import io.github.ungle.kong.client.model.ApiDataList;
 import io.github.ungle.kong.client.model.IdNameRelation;
@@ -56,7 +57,7 @@ public class PluginTest {
     @Order(1)
     public void createPlugin() throws Exception {
     	PluginRequest request = new PluginRequest();
-    	request.setName("rate-limiting");
+    	request.setName(InnerPluginName.RATE_LIMITING.getPluginName());
     	request.setService(new IdNameRelation(serviceId));
     	request.setConfig(RateLimitingConfig.builder().withSecond(11L).build());
     	request.setTags(Collections.singleton("test-plugin"));

@@ -42,7 +42,7 @@ public class ResponseTransformerConfig extends PluginConfig {
 		return append;
 	}
 
-	public class BasicResponseOperation {
+	public static class BasicResponseOperation {
 
 		private List<String> headers;
 
@@ -56,9 +56,19 @@ public class ResponseTransformerConfig extends PluginConfig {
 
 	}
 
-	public class JsonResponseOperation extends BasicResponseOperation {
+	public static class JsonResponseOperation {
+		
+		private List<String> headers;
 
 		private List<String> json;
+		
+		public List<String> getHeaders() {
+			return headers;
+		}
+
+		public void setHeaders(List<String> headers) {
+			this.headers = headers;
+		}
 
 		public List<String> getJson() {
 			return json;
@@ -70,10 +80,30 @@ public class ResponseTransformerConfig extends PluginConfig {
 
 	}
 
-	public class JsonTypeResponseOperation extends JsonResponseOperation {
+	public static class JsonTypeResponseOperation {
 
 		@JsonProperty("json_types")
 		private List<String> jsonTypes;
+		
+		private List<String> headers;
+
+		private List<String> json;
+		
+		public List<String> getHeaders() {
+			return headers;
+		}
+
+		public void setHeaders(List<String> headers) {
+			this.headers = headers;
+		}
+
+		public List<String> getJson() {
+			return json;
+		}
+
+		public void setJson(List<String> json) {
+			this.json = json;
+		}
 
 		public List<String> getJsonTypes() {
 			return jsonTypes;

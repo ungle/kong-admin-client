@@ -84,13 +84,14 @@ public NodeStatusResponse hello() {
 
 For these plugins, entities are supported in this client:
 
-| Plugin     |               |                |
-| ---------- | ------------- | -------------- |
-| Basic Auth | Oauth2        | IP Restriction |
-| HMAC       | Session       | ACL            |
-| JWT        | ACME          | Proxy Cache    |
-| Key        | Bot Detection | Rate Limiting  |
-| LDAP       | CORS          |                |
+| Plugin               |               |                       |                        |                      |
+| -------------------- | ------------- | --------------------- | ---------------------- | -------------------- |
+| Basic Auth           | Oauth2        | IP Restriction        | Request Termination    | Serverless Functions |
+| HMAC                 | Session       | ACL                   | Response Rate Limiting | Correlation ID       |
+| JWT                  | ACME          | Proxy Cache           | AWS Lambda             | gRPC-gateway         |
+| Key                  | Bot Detection | Rate Limiting         | Azure Functions        | gRPC-Web             |
+| LDAP                 | CORS          | Request Size Limiting | Apache OpenWhisk       | Request Transformer  |
+| Response Transformer |               |                       |                        |                      |
 
 you can easily build the entities with builders
 
@@ -132,7 +133,11 @@ kong.client.auth.jwt-auth.key =xxx
 # more detail see https://github.com/ungle/kong-admin-client/blob/master/spring-boot-starter-kong-client/src/main/java/io/github/ungle/kong/springboot/configuration/KongAuthProperties.java
 ```
 
-For now, kong-admin-client supports Basic Auth and Key Auth secured admin api.
+For now, kong-admin-client supports Basic Auth, Key Auth and JWT Auth secured admin api.
+
+**Note1:** JWT Auth secured admin api only support exp claim to verify.
+
+**Note2:** kong-admin-client supports only one authentication way at one time, you cannot apply multiple authentication methods at one admin api endpoint.
 
 ### Working with Older Kong Version
 

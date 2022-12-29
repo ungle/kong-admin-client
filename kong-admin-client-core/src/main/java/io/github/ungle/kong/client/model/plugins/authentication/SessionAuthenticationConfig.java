@@ -7,6 +7,7 @@ import java.util.Set;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.github.ungle.kong.client.enums.HttpMethod.SessionAllowedMethod;
+import io.github.ungle.kong.client.model.plugins.PluginConfig;
 import io.github.ungle.kong.client.service.ValidateUtils;
 
 /**
@@ -16,7 +17,7 @@ import io.github.ungle.kong.client.service.ValidateUtils;
  *      https://docs.konghq.com/hub/kong-inc/session/ </a>
  *
  */
-public class SessionAuthentication extends BaseAuthenticationConfig {
+public class SessionAuthenticationConfig extends PluginConfig {
 
 	private String secret;
 
@@ -35,7 +36,7 @@ public class SessionAuthentication extends BaseAuthenticationConfig {
 	@JsonProperty("cookie_path")
 	private String cookiePath;
 
-	@JsonProperty("cookie_path")
+	@JsonProperty("cookie_domain")
 	private String cookieDomain;
 
 	@JsonProperty("cookie_samesite")
@@ -62,8 +63,7 @@ public class SessionAuthentication extends BaseAuthenticationConfig {
 	@JsonProperty("logout_post_arg")
 	private String logoutPostArg;
 
-	private SessionAuthentication(Builder builder) {
-		super(builder.hideCredentials, builder.anoymousDefaultUserId);
+	private SessionAuthenticationConfig(Builder builder) {
 		this.secret = builder.secret;
 		this.cookieName = builder.cookieName;
 		this.cookieLifeTime = builder.cookieLifeTime;
@@ -161,8 +161,6 @@ public class SessionAuthentication extends BaseAuthenticationConfig {
 		private Set<SessionAllowedMethod> logoutMethods;
 		private String logoutQueryArg;
 		private String logoutPostArg;
-		private Boolean hideCredentials;
-		private String anoymousDefaultUserId;
 
 		private Builder() {
 		}
@@ -242,17 +240,8 @@ public class SessionAuthentication extends BaseAuthenticationConfig {
 			return this;
 		}
 
-		public Builder withHideCredentials(Boolean hideCredentials) {
-			this.hideCredentials = hideCredentials;
-			return this;
-		}
 
-		public Builder withAnoymousDefaultUserId(String anoymousDefaultUserId) {
-			this.anoymousDefaultUserId = anoymousDefaultUserId;
-			return this;
-		}
-
-		public SessionAuthentication build() {
+		public SessionAuthenticationConfig build() {
 			this.cookieName = ValidateUtils.defaultIfEmpty(cookieName, "session");
 			this.cookieLifeTime =ValidateUtils.defaultIfNull(cookieLifeTime, 3600);
 			this.cookieRenew =ValidateUtils.defaultIfNull(cookieRenew , 600);
@@ -266,8 +255,7 @@ public class SessionAuthentication extends BaseAuthenticationConfig {
 					SessionAllowedMethod.DELETE)));
 			this.logoutQueryArg = ValidateUtils.defaultIfEmpty(logoutQueryArg, "session_logout");
 			this.logoutPostArg = ValidateUtils.defaultIfEmpty(logoutPostArg, "session_logout");
-			this.hideCredentials = ValidateUtils.defaultIfNull(hideCredentials, Boolean.FALSE);
-			return new SessionAuthentication(this);
+			return new SessionAuthenticationConfig(this);
 		}
 	}
 

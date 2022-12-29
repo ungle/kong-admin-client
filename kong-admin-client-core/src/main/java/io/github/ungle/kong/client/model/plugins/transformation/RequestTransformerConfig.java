@@ -45,13 +45,14 @@ public class RequestTransformerConfig extends PluginConfig {
 		return append;
 	}
 
-	public class RequestOperation {
+	public static class RequestOperation {
 
 		private List<String> headers;
 
 		private List<String> body;
 
 		private List<String> querystring;
+		
 
 		public List<String> getHeaders() {
 			return headers;
@@ -79,7 +80,7 @@ public class RequestTransformerConfig extends PluginConfig {
 
 	}
 
-	public class ReplaceRequestOperation extends RequestOperation {
+	public static class ReplaceRequestOperation extends RequestOperation {
 
 		private String uri;
 

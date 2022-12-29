@@ -15,7 +15,7 @@ public class AclConfig extends PluginConfig {
     private Set<String> allow;
     private Set<String> deny;
     @JsonProperty("hide_groups_header")
-    private Boolean hideGroupHeader = true;
+    private Boolean hideGroupHeader;
     
     
 	private AclConfig(Builder builder) {

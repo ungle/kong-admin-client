@@ -99,6 +99,9 @@ public class RateLimitData {
 			}
 			
 			for(int i=0; i < rates.length-1;i++) {
+				if(rates[i] == null) {
+					continue;
+				}
 				for(int j =1; j < rates.length;j++) {
 					if(rates[j] !=null && rates[j] < rates[i]) {
 						throw new IllegalArgumentException(String.format("the limit for %s(%d) cannot be lower than the limit for %s(%d)", 

@@ -5,6 +5,7 @@ import java.util.stream.Stream;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import feign.Util;
 import io.github.ungle.kong.client.enums.RateLimitingAggregation;
 import io.github.ungle.kong.client.enums.RateLimitingPolicy;
 import io.github.ungle.kong.client.model.plugins.PluginConfig;
@@ -316,7 +317,7 @@ public class RateLimitingConfig extends PluginConfig {
 		
 		private void verifyPolicy() {
 			if (RateLimitingPolicy.REDIS.equals(policy)
-					&& (redisHost == null || redisPort == null || redisTimeout == null)) {
+					&& (Util.isBlank(redisHost) || redisPort == null || redisTimeout == null)) {
 				throw new IllegalArgumentException("redis param must be specified when policy is redis");
 			}
 		}
@@ -335,6 +336,9 @@ public class RateLimitingConfig extends PluginConfig {
 			}
 			
 			for(int i=0; i < rates.length-1;i++) {
+				if(rates[i] == null) {
+					continue;
+				}
 				for(int j =1; j < rates.length;j++) {
 					if(rates[j] !=null && rates[j] < rates[i]) {
 						throw new IllegalArgumentException(String.format("the limit for %s(%d) cannot be lower than the limit for %s(%d)", 
