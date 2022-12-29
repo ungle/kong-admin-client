@@ -97,7 +97,11 @@ you can easily build the entities with builders
 
 ```java
 PluginRequest request = new PluginRequest();
-request.setName("rate-limiting");
+request.setName(InnerPluginName.RATE_LIMITING.getPluginName());
+/**
+*you can manually set the plugin name via, useful for custom plugins:
+*request.setName("rate-limiting");
+**/
 request.setService(new IdNameRelation(serviceId));
 request.setConfig(RateLimitingConfig.builder().withSecond(11L).build());
 PluginResponse result = pluginApi.add(request);
