@@ -91,7 +91,7 @@ public class ProxyCacheConfig extends PluginConfig {
 		@JsonProperty("dictionary_name")
 		private String dictionaryName;
 
-		private MemoryDictionary() {
+		public MemoryDictionary() {
 			dictionaryName = "kong_db_cache";
 		}
 
@@ -109,9 +109,6 @@ public class ProxyCacheConfig extends PluginConfig {
 
 	}
 	
-	public static MemoryDictionary memoryDictionary() {
-		return new MemoryDictionary();
-	}
 
 
 	public static Builder builder() {
@@ -187,7 +184,7 @@ public class ProxyCacheConfig extends PluginConfig {
 			cacheTTL=ValidateUtils.defaultIfNull(cacheTTL,300);
 			cacheControl=ValidateUtils.defaultIfNull(cacheControl,Boolean.FALSE);
 			strategy ="memory";
-			memory=ValidateUtils.defaultIfNull(memory,ProxyCacheConfig.memoryDictionary());
+			memory=ValidateUtils.defaultIfNull(memory,new MemoryDictionary());
 			return new ProxyCacheConfig(this);
 		}
 	}
