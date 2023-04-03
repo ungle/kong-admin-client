@@ -18,6 +18,7 @@ jobs:
     env:
       KONG_TEST_PG_DATABASE: kong
       KONG_TEST_PG_USER: kong
+      KONG_VERSION: 3.2.2.0
       
     services:
       postgres:
@@ -34,8 +35,8 @@ jobs:
     
     - name: Set kong environment
       run: |
-          sudo curl -Lo kong-enterprise-edition-3.1.0.0.all.deb "https://download.konghq.com/gateway-3.x-ubuntu-$(lsb_release -sc)/pool/all/k/kong-enterprise-edition/kong-enterprise-edition_3.1.0.0_amd64.deb"
-          sudo dpkg -i kong-enterprise-edition-3.1.0.0.all.deb
+          sudo curl -Lo kong-enterprise-edition-${{env.KONG_VERSION}}.all.deb "https://download.konghq.com/gateway-3.x-ubuntu-$(lsb_release -sc)/pool/all/k/kong-enterprise-edition/kong-enterprise-edition_$KONG_VERSION_amd64.deb"
+          sudo dpkg -i kong-enterprise-edition-${{env.KONG_VERSION}}.all.deb
           sudo kong migrations bootstrap
           sudo kong start
     - name: verify kong install
