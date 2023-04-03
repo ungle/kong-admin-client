@@ -7,18 +7,24 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public enum BalancingAlgorithm {
     /**
-     * 轮询
+     * round-robin
      */
     @JsonProperty("round-robin")
     ROUND_ROBIN,
     /**
-     * 哈希
+     * hash
      */
     @JsonProperty("consistent-hashing")
     CONSISTENT_HASHING,
     /**
-     * 最少连接
+     * least-connections
      */
     @JsonProperty("least-connections")
-    LEAST_CONNECTIONS
+    LEAST_CONNECTIONS,
+    
+    /*
+     * introduced in 3.2.x, choose target base on its latency
+     */
+    @JsonProperty("latency")
+    LATENCY
 }

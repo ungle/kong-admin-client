@@ -1,5 +1,6 @@
 package io.github.ungle.kong.client.requests;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.github.ungle.kong.client.enums.ProtocolEnum;
@@ -10,6 +11,15 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * From Kong 3.2.x, new attribute <i>instance_name</i> is added, <i>JsonInclude.Include.NON_NULL</i> can contribute to some compatibility 
+ * for Kong 3.1.x and below
+ * <p>
+ * <b>Notice: </b> If run under 3.1.x and below, please leave <i>instance_name</i> as null.
+ * @author ungle
+ *
+ */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class PluginRequest extends Request {
 
     @JsonProperty("route")
@@ -20,6 +30,9 @@ public class PluginRequest extends Request {
 
     @JsonProperty("name")
     private String name;
+    
+    @JsonProperty("instance_name")
+    private String instanceName;
 
     @JsonProperty("protocols")
     private Set<ProtocolEnum> protocols = new HashSet<>(Arrays.asList(ProtocolEnum.GRPC, ProtocolEnum.GRPCS, ProtocolEnum.HTTP, ProtocolEnum.HTTPS));
@@ -67,7 +80,15 @@ public class PluginRequest extends Request {
         this.name = name;
     }
 
-    public Set<ProtocolEnum> getProtocols() {
+    public String getInstanceName() {
+		return instanceName;
+	}
+
+	public void setInstanceName(String instanceName) {
+		this.instanceName = instanceName;
+	}
+
+	public Set<ProtocolEnum> getProtocols() {
         return protocols;
     }
 

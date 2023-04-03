@@ -53,6 +53,8 @@ public class AWSLambdaConfig extends PluginConfig {
 	private Boolean skipLargeBodies;
 	@JsonProperty("base64_encode_body")
 	private Boolean base64EncodeBody;
+	@JsonProperty("aws_imds_protocol_version")
+	private String awsImdsProtocolVersion;
 
 	private AWSLambdaConfig(Builder builder) {
 		this.awsKey = builder.awsKey;
@@ -78,6 +80,7 @@ public class AWSLambdaConfig extends PluginConfig {
 		this.proxyUrl = builder.proxyUrl;
 		this.skipLargeBodies = builder.skipLargeBodies;
 		this.base64EncodeBody = builder.base64EncodeBody;
+		this.awsImdsProtocolVersion = builder.awsImdsProtocolVersion;
 	}
 
 	public String getAwsKey() {
@@ -172,6 +175,10 @@ public class AWSLambdaConfig extends PluginConfig {
 		return base64EncodeBody;
 	}
 
+	public String getAwsImdsProtocolVersion() {
+		return awsImdsProtocolVersion;
+	}
+
 	public static Builder builder() {
 		return new Builder();
 	}
@@ -200,6 +207,7 @@ public class AWSLambdaConfig extends PluginConfig {
 		private String proxyUrl;
 		private Boolean skipLargeBodies;
 		private Boolean base64EncodeBody;
+		private String awsImdsProtocolVersion;
 
 		private Builder() {
 		}
@@ -318,6 +326,11 @@ public class AWSLambdaConfig extends PluginConfig {
 			this.base64EncodeBody = base64EncodeBody;
 			return this;
 		}
+		
+		public Builder withAwsImdsProtocolVersion(String awsImdsProtocolVersion) {
+			this.awsImdsProtocolVersion = awsImdsProtocolVersion;
+			return this;
+		}
 
 		public AWSLambdaConfig build() {
 			timeout = ValidateUtils.defaultIfNull(timeout, 60000L);
@@ -331,6 +344,7 @@ public class AWSLambdaConfig extends PluginConfig {
 			awsgatewayCompatible = ValidateUtils.defaultIfNull(awsgatewayCompatible, Boolean.FALSE);
 			skipLargeBodies = ValidateUtils.defaultIfNull(skipLargeBodies, Boolean.TRUE);
 			base64EncodeBody = ValidateUtils.defaultIfNull(base64EncodeBody, Boolean.TRUE);
+			awsImdsProtocolVersion = ValidateUtils.defaultIfEmpty(awsImdsProtocolVersion, "v1");
 			return new AWSLambdaConfig(this);
 		}
 	}
