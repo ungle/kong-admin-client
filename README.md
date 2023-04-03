@@ -10,7 +10,7 @@ For kong-admin-client 2.0.0
 
 | Component | Version                            |
 | --------- | ---------------------------------- |
-| Spring    | spring-boot 2.7.6 or spring 5.3.24 |
+| Spring    | spring-boot 2.7.10 or spring 5.3.26 |
 | Java      | 1.8                                |
 | Kong      | tested in 3.1.0                    |
 
@@ -26,7 +26,7 @@ import by maven
 <dependency>
   <groupId>io.github.ungle</groupId>
   <artifactId>kong-admin-client-core</artifactId>
-  <version>2.1.1</version>
+  <version>2.1.2</version>
 </dependency>
 ```
 
@@ -48,7 +48,7 @@ import by maven
 <dependency>
   <groupId>io.github.ungle</groupId>
   <artifactId>spring-boot-starter-kong-client</artifactId>
-  <version>2.1.1</version>
+  <version>2.1.2</version>
 </dependency>
 ```
 
