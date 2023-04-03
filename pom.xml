@@ -4,7 +4,7 @@
 	<groupId>io.github.ungle</groupId>
 	<artifactId>kong-admin-client</artifactId>
 	<packaging>pom</packaging>
-	<version>2.1.1</version>
+	<version>2.1.2</version>
 	<modules>
 		<module>kong-admin-client-core</module>
 		<module>spring-boot-starter-kong-client</module>
@@ -18,7 +18,7 @@
 		<url>scm:git@github.com:ungle/kong-admin-client.git</url>
 	</scm>
 	<properties>
-		<project.version>2.1.1</project.version>
+		<project.version>2.1.2</project.version>
 		<encoding>UTF-8</encoding>
 		<java.version>1.8</java.version>
 		<resource.delimiter>@</resource.delimiter>
@@ -27,10 +27,10 @@
 		<project.build.sourceEncoding>${encoding}</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>${encoding}</project.reporting.outputEncoding>
 		<feign.version>12.1</feign.version>
-		<spring.version>2.7.6</spring.version>
+		<spring.version>2.7.10</spring.version>
 		<okhttp.version>4.10.0</okhttp.version>
 		<junit.version>5.9.1</junit.version>
-		<slf4j.version>2.0.5</slf4j.version>
+		<slf4j.version>2.0.7</slf4j.version>
 		<jwt.version>4.2.1</jwt.version>
 	</properties>
 	<licenses>
