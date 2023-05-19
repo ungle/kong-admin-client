@@ -1,6 +1,8 @@
 package io.github.ungle.kong.client.test.pluginmodel;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
@@ -59,15 +61,26 @@ public class SessionAuthPluginModelTest {
 		String pluginName = InnerPluginName.SESSION.getPluginName();
 		request.setName(pluginName);
 		request.setService(new IdNameRelation(serviceId));
-		request.setConfig(SessionAuthenticationConfig.builder().withCookieRenew(747)
-				.withLogoutMethods(new HashSet<>(Collections.singletonList(SessionAllowedMethod.DELETE))).build());
+		request.setConfig(SessionAuthenticationConfig.builder()
+				.withLogoutMethods(new HashSet<>(Collections.singletonList(SessionAllowedMethod.DELETE)))
+				.withRemember(true)
+				.withRememberAbsouluteTimeout(111)
+				.withRememberCookieName("tester")
+				.withRememberRollingTimeout(222)
+				.withAbsoluteTimeout(333)
+				.withCookieIdleTime(555)
+				.build());
 		PluginResponse result = pluginApi.add(request);
 		pluginId = result.getId();
 		JsonNode tree = objectMapper.readTree(objectMapper.writeValueAsBytes(result.getConfig()));
 		assertEquals(pluginName, result.getName());
 		assertEquals(1,tree.get("logout_methods").size());
 		assertEquals("DELETE",tree.get("logout_methods").get(0).asText());
-		assertEquals(747, tree.get("cookie_renew").asInt());
+		assertEquals(555, tree.get("idling_timeout").asInt());
+		assertEquals(333, tree.get("absolute_timeout").asInt());
+		assertEquals(111, tree.get("remember_absolute_timeout").asInt());
+		assertEquals(222, tree.get("remember_rolling_timeout").asInt());
+		assertTrue(tree.get("remember").asBoolean());
 		
 	}
 

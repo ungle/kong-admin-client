@@ -59,6 +59,7 @@ public class PluginTest {
     	PluginRequest request = new PluginRequest();
     	request.setName(InnerPluginName.RATE_LIMITING.getPluginName());
     	request.setService(new IdNameRelation(serviceId));
+    	request.setInstanceName("my-rate-limit");
     	request.setConfig(RateLimitingConfig.builder().withSecond(11L).build());
     	request.setTags(Collections.singleton("test-plugin"));
     	PluginResponse result = pluginApi.add(request);

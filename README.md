@@ -6,15 +6,17 @@ Developed based on [feign](https://github.com/OpenFeign/feign) http client
 
 ## Compatibility
 
-For kong-admin-client 2.0.0
+For kong-admin-client 2.2.0
 
-| Component | Version                            |
-| --------- | ---------------------------------- |
+| Component | Version                             |
+| --------- | ----------------------------------- |
 | Spring    | spring-boot 2.7.10 or spring 5.3.26 |
-| Java      | 1.8                                |
-| Kong      | tested in 3.1.0                    |
+| Java      | 1.8                                 |
+| Kong      | tested in 3.2.2                     |
 
 For Kong version below 3.x, some entity endpoints (like vaults, keys and key-sets) will be unavailable and some rate-limiting policy cannot be supported. For 1.x Kong version, a legacy decoder need to be applied.
+
+**Update:**  For kong 3.1.x, please use kong-admin-client 2.1.x for full compactability. In version 2.2.x, plugin **AWSLambda** and **Session Authentication** cannot support kong 3.1.x.
 
 ## Quick Start
 
@@ -26,7 +28,7 @@ import by maven
 <dependency>
   <groupId>io.github.ungle</groupId>
   <artifactId>kong-admin-client-core</artifactId>
-  <version>2.1.2</version>
+  <version>2.2.0</version>
 </dependency>
 ```
 
@@ -48,7 +50,7 @@ import by maven
 <dependency>
   <groupId>io.github.ungle</groupId>
   <artifactId>spring-boot-starter-kong-client</artifactId>
-  <version>2.1.2</version>
+  <version>2.2.0</version>
 </dependency>
 ```
 

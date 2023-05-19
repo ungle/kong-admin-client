@@ -53,7 +53,7 @@ public class UpstreamTargetTest {
     @Order(1)
     public void addAndUpdate() throws Exception {
     	UpstreamRequest upstreamRequest = new UpstreamRequest();
-        upstreamRequest.setAlgorithm(BalancingAlgorithm.ROUND_ROBIN);
+        upstreamRequest.setAlgorithm(BalancingAlgorithm.LATENCY);
         upstreamRequest.setName(upstreamName);
         HealthCheck healthCheck = new HealthCheck();
         healthCheck.setThreshold(1);
@@ -62,6 +62,7 @@ public class UpstreamTargetTest {
         assertEquals(1, response.getHealthchecks().getThreshold());
         healthCheck.setThreshold(0);
         upstreamRequest.setTags(Collections.singleton("upstream-test"));
+        upstreamRequest.setAlgorithm(BalancingAlgorithm.LEAST_CONNECTIONS);
         upstreamId = response.getId();
         upstreamName = response.getName();
         response = upstreamApi.update(upstreamName, upstreamRequest);

@@ -1,12 +1,10 @@
 # This workflow will build a package using Maven and then publish it to Maven Central when a release is created
 # For more information see: https://github.com/actions/setup-java/blob/main/docs/advanced-usage.md#apache-maven-with-a-settings-path
 
-name: Maven Publish
+name: Integration Test
 
 on:
   workflow_dispatch:
-  release:
-    types: [created]
 
 jobs:
   build:
@@ -18,7 +16,7 @@ jobs:
     env:
       KONG_TEST_PG_DATABASE: kong
       KONG_TEST_PG_USER: kong
-      KONG_VERSION: 3.2.2.2
+      KONG_VERSION: 3.2.2.0
       
     services:
       postgres:
@@ -56,8 +54,4 @@ jobs:
         
 
     - name: Publish to the Maven Central Repository
-      run: mvn --no-transfer-progress --batch-mode deploy
-      env:
-          MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
-          MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
-          MAVEN_GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+      run: mvn test
