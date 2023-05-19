@@ -24,14 +24,11 @@ public class SessionAuthenticationConfig extends PluginConfig {
 	@JsonProperty("cookie_name")
 	private String cookieName;
 
-	@JsonProperty("cookie_lifetime")
+	@JsonProperty("rolling_timeout")
 	private Integer cookieLifeTime;
 
-	@JsonProperty("cookie_idletime")
+	@JsonProperty("idling_timeout")
 	private Integer cookieIdleTime;
-
-	@JsonProperty("cookie_renew")
-	private Integer cookieRenew;
 
 	@JsonProperty("cookie_path")
 	private String cookiePath;
@@ -39,16 +36,16 @@ public class SessionAuthenticationConfig extends PluginConfig {
 	@JsonProperty("cookie_domain")
 	private String cookieDomain;
 
-	@JsonProperty("cookie_samesite")
+	@JsonProperty("cookie_same_site")
 	private String cookieSemestie;
 
-	@JsonProperty("cookie_httponly")
+	@JsonProperty("cookie_http_only")
 	private Boolean cookieHttpOnly;
 
 	@JsonProperty("cookie_secure")
 	private Boolean cookieSecure;
 
-	@JsonProperty("cookie_discard")
+	@JsonProperty("stale_ttl")
 	private Integer cookieDiscard;
 
 	@JsonProperty("storage")
@@ -63,12 +60,34 @@ public class SessionAuthenticationConfig extends PluginConfig {
 	@JsonProperty("logout_post_arg")
 	private String logoutPostArg;
 
+	@JsonProperty("audience")
+	private String audience;
+
+	@JsonProperty("absolute_timeout")
+	private Integer absoluteTimeout;
+
+	private Boolean remember;
+
+	@JsonProperty("remember_cookie_name")
+	private String rememberCookieName;
+
+	@JsonProperty("remember_rolling_timeout")
+	private Integer rememberRollingTimeout;
+
+	@JsonProperty("remember_absolute_timeout")
+	private Integer rememberAbsouluteTimeout;
+
+	@JsonProperty("request_headers")
+	private Set<String> requestHeaders;
+
+	@JsonProperty("response_headers")
+	private Set<String> responseHeaders;
+
 	private SessionAuthenticationConfig(Builder builder) {
 		this.secret = builder.secret;
 		this.cookieName = builder.cookieName;
 		this.cookieLifeTime = builder.cookieLifeTime;
 		this.cookieIdleTime = builder.cookieIdleTime;
-		this.cookieRenew = builder.cookieRenew;
 		this.cookiePath = builder.cookiePath;
 		this.cookieDomain = builder.cookieDomain;
 		this.cookieSemestie = builder.cookieSemestie;
@@ -79,10 +98,14 @@ public class SessionAuthenticationConfig extends PluginConfig {
 		this.logoutMethods = builder.logoutMethods;
 		this.logoutQueryArg = builder.logoutQueryArg;
 		this.logoutPostArg = builder.logoutPostArg;
-	}
-
-	public static Builder builder() {
-		return new Builder();
+		this.audience = builder.audience;
+		this.absoluteTimeout = builder.absoluteTimeout;
+		this.remember = builder.remember;
+		this.rememberCookieName = builder.rememberCookieName;
+		this.rememberRollingTimeout = builder.rememberRollingTimeout;
+		this.rememberAbsouluteTimeout = builder.rememberAbsouluteTimeout;
+		this.requestHeaders = builder.requestHeaders;
+		this.responseHeaders = builder.responseHeaders;
 	}
 
 	public String getSecret() {
@@ -101,8 +124,40 @@ public class SessionAuthenticationConfig extends PluginConfig {
 		return cookieIdleTime;
 	}
 
-	public Integer getCookieRenew() {
-		return cookieRenew;
+	public String getLogoutPostArg() {
+		return logoutPostArg;
+	}
+
+	public String getAudience() {
+		return audience;
+	}
+
+	public Integer getAbsoluteTimeout() {
+		return absoluteTimeout;
+	}
+
+	public Boolean getRemember() {
+		return remember;
+	}
+
+	public String getRememberCookieName() {
+		return rememberCookieName;
+	}
+
+	public Integer getRememberRollingTimeout() {
+		return rememberRollingTimeout;
+	}
+
+	public Integer getRememberAbsouluteTimeout() {
+		return rememberAbsouluteTimeout;
+	}
+
+	public Set<String> getRequestHeaders() {
+		return requestHeaders;
+	}
+
+	public Set<String> getResponseHeaders() {
+		return responseHeaders;
 	}
 
 	public String getCookiePath() {
@@ -141,8 +196,8 @@ public class SessionAuthenticationConfig extends PluginConfig {
 		return logoutQueryArg;
 	}
 
-	public String getLogoutPostArg() {
-		return logoutPostArg;
+	public static Builder builder() {
+		return new Builder();
 	}
 
 	public static final class Builder {
@@ -150,7 +205,6 @@ public class SessionAuthenticationConfig extends PluginConfig {
 		private String cookieName;
 		private Integer cookieLifeTime;
 		private Integer cookieIdleTime;
-		private Integer cookieRenew;
 		private String cookiePath;
 		private String cookieDomain;
 		private String cookieSemestie;
@@ -161,6 +215,14 @@ public class SessionAuthenticationConfig extends PluginConfig {
 		private Set<SessionAllowedMethod> logoutMethods;
 		private String logoutQueryArg;
 		private String logoutPostArg;
+		private String audience;
+		private Integer absoluteTimeout;
+		private Boolean remember;
+		private String rememberCookieName;
+		private Integer rememberRollingTimeout;
+		private Integer rememberAbsouluteTimeout;
+		private Set<String> requestHeaders;
+		private Set<String> responseHeaders;
 
 		private Builder() {
 		}
@@ -182,11 +244,6 @@ public class SessionAuthenticationConfig extends PluginConfig {
 
 		public Builder withCookieIdleTime(Integer cookieIdleTime) {
 			this.cookieIdleTime = cookieIdleTime;
-			return this;
-		}
-
-		public Builder withCookieRenew(Integer cookieRenew) {
-			this.cookieRenew = cookieRenew;
 			return this;
 		}
 
@@ -240,19 +297,57 @@ public class SessionAuthenticationConfig extends PluginConfig {
 			return this;
 		}
 
+		public Builder withAudience(String audience) {
+			this.audience = audience;
+			return this;
+		}
+
+		public Builder withAbsoluteTimeout(Integer absoluteTimeout) {
+			this.absoluteTimeout = absoluteTimeout;
+			return this;
+		}
+
+		public Builder withRemember(Boolean remember) {
+			this.remember = remember;
+			return this;
+		}
+
+		public Builder withRememberCookieName(String rememberCookieName) {
+			this.rememberCookieName = rememberCookieName;
+			return this;
+		}
+
+		public Builder withRememberRollingTimeout(Integer rememberRollingTimeout) {
+			this.rememberRollingTimeout = rememberRollingTimeout;
+			return this;
+		}
+
+		public Builder withRememberAbsouluteTimeout(Integer rememberAbsouluteTimeout) {
+			this.rememberAbsouluteTimeout = rememberAbsouluteTimeout;
+			return this;
+		}
+
+		public Builder withRequestHeaders(Set<String> requestHeaders) {
+			this.requestHeaders = requestHeaders;
+			return this;
+		}
+
+		public Builder withResponseHeaders(Set<String> responseHeaders) {
+			this.responseHeaders = responseHeaders;
+			return this;
+		}
 
 		public SessionAuthenticationConfig build() {
 			this.cookieName = ValidateUtils.defaultIfEmpty(cookieName, "session");
-			this.cookieLifeTime =ValidateUtils.defaultIfNull(cookieLifeTime, 3600);
-			this.cookieRenew =ValidateUtils.defaultIfNull(cookieRenew , 600);
-			this.cookiePath =ValidateUtils.defaultIfNull(cookiePath , "/");
-			this.cookieSemestie = ValidateUtils.defaultIfNull(cookieSemestie ,"Strict");
-			this.cookieHttpOnly =ValidateUtils.defaultIfNull( cookieHttpOnly, Boolean.TRUE);
-			this.cookieSecure =ValidateUtils.defaultIfNull(cookieSecure , Boolean.TRUE);
-			this.cookieDiscard =ValidateUtils.defaultIfNull(cookieDiscard , 10);
-			this.cookieStorage =ValidateUtils.defaultIfNull(cookieStorage , "cookie");
-			this.logoutMethods = ValidateUtils.defaultIfNull(logoutMethods ,new HashSet<>(Arrays.asList(SessionAllowedMethod.POST, 
-					SessionAllowedMethod.DELETE)));
+			this.cookieLifeTime = ValidateUtils.defaultIfNull(cookieLifeTime, 3600);
+			this.cookiePath = ValidateUtils.defaultIfNull(cookiePath, "/");
+			this.cookieSemestie = ValidateUtils.defaultIfNull(cookieSemestie, "Strict");
+			this.cookieHttpOnly = ValidateUtils.defaultIfNull(cookieHttpOnly, Boolean.TRUE);
+			this.cookieSecure = ValidateUtils.defaultIfNull(cookieSecure, Boolean.TRUE);
+			this.cookieDiscard = ValidateUtils.defaultIfNull(cookieDiscard, 10);
+			this.cookieStorage = ValidateUtils.defaultIfNull(cookieStorage, "cookie");
+			this.logoutMethods = ValidateUtils.defaultIfNull(logoutMethods,
+					new HashSet<>(Arrays.asList(SessionAllowedMethod.POST, SessionAllowedMethod.DELETE)));
 			this.logoutQueryArg = ValidateUtils.defaultIfEmpty(logoutQueryArg, "session_logout");
 			this.logoutPostArg = ValidateUtils.defaultIfEmpty(logoutPostArg, "session_logout");
 			return new SessionAuthenticationConfig(this);
