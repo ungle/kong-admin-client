@@ -1,0 +1,57 @@
+# This workflow will build a package using Maven and then publish it to Maven Central when a release is created
+# For more information see: https://github.com/actions/setup-java/blob/main/docs/advanced-usage.md#apache-maven-with-a-settings-path
+
+name: Maven Publish
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: write
+    env:
+      KONG_TEST_PG_DATABASE: kong
+      KONG_TEST_PG_USER: kong
+      KONG_VERSION: 3.2.2.0
+      
+    services:
+      postgres:
+        image: postgres:13
+        env:
+          POSTGRES_USER: kong
+          POSTGRES_DB: kong
+          POSTGRES_HOST_AUTH_METHOD: trust
+        ports:
+          - 5432:5432
+        options: --health-cmd pg_isready --health-interval 5s --health-timeout 5s --health-retries 8
+
+    steps:
+    
+    - name: Set kong environment
+      run: |
+          sudo curl -Lo kong-enterprise-edition-${{env.KONG_VERSION}}.all.deb "https://download.konghq.com/gateway-3.x-ubuntu-$(lsb_release -sc)/pool/all/k/kong-enterprise-edition/kong-enterprise-edition_$KONG_VERSION_amd64.deb"
+          sudo dpkg -i kong-enterprise-edition-${{env.KONG_VERSION}}.all.deb
+          sudo kong migrations bootstrap
+          sudo kong start
+    - name: verify kong install
+      run: |
+          curl -i http://127.0.0.1:8001
+          
+    - uses: actions/checkout@v3
+    - name: Set up JDK 8
+      uses: actions/setup-java@v1
+      with:
+        java-version: 1.8
+        server-id: ossrh
+        server-username: MAVEN_USERNAME
+        server-password: MAVEN_PASSWORD
+        gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
+        gpg-passphrase: MAVEN_GPG_PASSPHRASE
+        
+
+    - name: Publish to the Maven Central Repository
+      run: mvn test
